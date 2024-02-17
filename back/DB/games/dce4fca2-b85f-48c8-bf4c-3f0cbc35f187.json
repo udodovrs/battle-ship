@@ -1,0 +1,230 @@
+{
+  "_id": "dce4fca2-b85f-48c8-bf4c-3f0cbc35f187",
+  "turn": "plaeyr_1",
+  "shipsPlayer_1": [
+    {
+      "position": {
+        "x": 4,
+        "y": 1
+      },
+      "direction": false,
+      "type": "huge",
+      "length": 4,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 5
+      },
+      "direction": true,
+      "type": "large",
+      "length": 3,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 7
+      },
+      "direction": false,
+      "type": "large",
+      "length": 3,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 4
+      },
+      "direction": false,
+      "type": "medium",
+      "length": 2,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 3
+      },
+      "direction": true,
+      "type": "medium",
+      "length": 2,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "direction": true,
+      "type": "medium",
+      "length": 2,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 8,
+        "y": 5
+      },
+      "direction": true,
+      "type": "small",
+      "length": 1,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 7,
+        "y": 8
+      },
+      "direction": false,
+      "type": "small",
+      "length": 1,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0
+      },
+      "direction": false,
+      "type": "small",
+      "length": 1,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 8,
+        "y": 3
+      },
+      "direction": false,
+      "type": "small",
+      "length": 1,
+      "alive": true,
+      "hits": 0
+    }
+  ],
+  "player_1": "370a74b6-7cb3-4501-89dc-7a1b98afca0e",
+  "shipsPlayer_2": [
+    {
+      "position": {
+        "x": 1,
+        "y": 3
+      },
+      "direction": true,
+      "type": "huge",
+      "length": 4,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 4
+      },
+      "direction": true,
+      "type": "large",
+      "length": 3,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 8,
+        "y": 2
+      },
+      "direction": true,
+      "type": "large",
+      "length": 3,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "direction": true,
+      "type": "medium",
+      "length": 2,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 0
+      },
+      "direction": false,
+      "type": "medium",
+      "length": 2,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 8
+      },
+      "direction": false,
+      "type": "medium",
+      "length": 2,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 5
+      },
+      "direction": true,
+      "type": "small",
+      "length": 1,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 8,
+        "y": 6
+      },
+      "direction": false,
+      "type": "small",
+      "length": 1,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 8,
+        "y": 0
+      },
+      "direction": true,
+      "type": "small",
+      "length": 1,
+      "alive": true,
+      "hits": 0
+    },
+    {
+      "position": {
+        "x": 7,
+        "y": 8
+      },
+      "direction": true,
+      "type": "small",
+      "length": 1,
+      "alive": true,
+      "hits": 0
+    }
+  ],
+  "player_2": "c4cda4b6-a7f6-4743-8d21-6d86d5ea34a6"
+}
