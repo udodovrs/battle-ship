@@ -38,6 +38,10 @@ export const addUserToRoom = async (rowData, userId) => {
   const roomJSon = await Room.getElemnt(roomId);
   const room = JSON.parse(roomJSon);
 
+  if (room.roomUsers[0].index === userId) {
+    return false;
+  }
+
   const userJson = await User.getElemnt(userId);
   const userObj = JSON.parse(userJson);
 
@@ -62,5 +66,5 @@ export const addUserToRoom = async (rowData, userId) => {
       }
     });
 
-  return updateRoom;
+  return true;
 };

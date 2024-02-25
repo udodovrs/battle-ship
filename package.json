@@ -13,8 +13,7 @@
     "keywords": [],
     "license": "ISC",
     "devDependencies": {
-        "nodemon": "^2.0.16",
-        "uuid": "^9.0.1"
+        "nodemon": "^2.0.16"
     },
     "dependencies": {
         "ws": "^8.8.0"

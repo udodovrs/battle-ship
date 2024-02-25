@@ -1,7 +1,13 @@
 import { Room, Game } from "../main.js";
+import { startSinglePlay } from "./single-play.js";
 
-export const createGame = async (senderId) => {
-  const rooms = await Room.getAllcolection();
+export const createGame = async (senderId, rowData) => {
+  const preparedData = { ...rowData };
+  preparedData.data = JSON.parse(preparedData.data);
+  const roomJson = await Room.getElemnt(preparedData.data.indexRoom);
+
+  const room = JSON.parse(roomJson);
+  const { roomUsers, _id } = room;
 
   let player_1 = null;
   let player_2 = null;
@@ -23,25 +29,19 @@ export const createGame = async (senderId) => {
     id: 0,
   };
 
-  JSON.parse(rooms)
-    .filter(({ roomUsers }) => roomUsers.length === 2)
-    .forEach(({ roomUsers, _id }) => {
-      if (roomUsers[0].index === senderId || roomUsers[1].index === senderId) {
-        if (senderId === roomUsers[0].index) {
-          player_1 = roomUsers[0].index;
-          player_2 = roomUsers[1].index;
-          gameRequest_1.data.idPlayer = player_1;
-          gameRequest_2.data.idPlayer = player_2;
-        } else {
-          player_1 = roomUsers[1].index;
-          player_2 = roomUsers[0].index;
-          gameRequest_1.data.idPlayer = player_1;
-          gameRequest_2.data.idPlayer = player_2;
-        }
-        gameRequest_1.data.idGame = _id;
-        gameRequest_2.data.idGame = _id;
-      }
-    });
+  if (senderId === roomUsers[0].index) {
+    player_1 = roomUsers[0].index;
+    player_2 = roomUsers[1].index;
+    gameRequest_1.data.idPlayer = player_1;
+    gameRequest_2.data.idPlayer = player_2;
+  } else {
+    player_1 = roomUsers[1].index;
+    player_2 = roomUsers[0].index;
+    gameRequest_1.data.idPlayer = player_1;
+    gameRequest_2.data.idPlayer = player_2;
+  }
+  gameRequest_1.data.idGame = _id;
+  gameRequest_2.data.idGame = _id;
 
   gameRequest_1.data = JSON.stringify(gameRequest_1.data).toString();
   gameRequest_2.data = JSON.stringify(gameRequest_2.data).toString();
@@ -60,7 +60,7 @@ export const startGame = async (rowData) => {
   if (!game) {
     const gameChema = {
       _id: preparedData.data.gameId,
-      turn: "plaeyr_1",
+      turn: "player_1",
       shipsPlayer_1: preparedData.data.ships,
       player_1: preparedData.data.indexPlayer,
     };
@@ -74,6 +74,12 @@ export const startGame = async (rowData) => {
     return { start_game: null, players: null };
   } else {
     const gameObj = JSON.parse(game);
+
+    if (gameObj.type === "single") {
+      const { start_game, players } = await startSinglePlay(rowData);
+      return { start_game, players };
+    }
+
     gameObj.shipsPlayer_2 = preparedData.data.ships;
     gameObj.player_2 = preparedData.data.indexPlayer;
     gameObj.shipsPlayer_2.forEach((item) => {
@@ -113,19 +119,28 @@ export const startGame = async (rowData) => {
   }
 };
 
-export const turn = async (rowData) => { 
+export const turn = async (rowData) => {
   const preparedData = { ...rowData };
   preparedData.data = JSON.parse(preparedData.data);
   const gameJson = await Game.getElemnt(preparedData.data.gameId);
   const game = JSON.parse(gameJson);
   let currentPlayer = null;
 
-  if (game.turn === "player_1") {
-    currentPlayer = game.player_1;
-    game.turn = "player_2";
-  } else {
-    currentPlayer = game.player_2;
-    game.turn = "player_1";
+  if (gameJson) {
+    if (game.turn === "player_1") {
+      currentPlayer = game.player_1;
+      game.turn = "player_2";
+    } else {
+      currentPlayer = game.player_2;
+      game.turn = "player_1";
+    }
+
+    if (game.type === "single") {
+      game.turn = "player_1";
+      currentPlayer = game.player_1;
+    }
+
+    await Game.updateElement(game._id, game);
   }
 
   const dataTurn = {
@@ -136,6 +151,28 @@ export const turn = async (rowData) => {
     id: 0,
   };
 
-  dataTurn.data = JSON.stringify(dataTurn.data).toString()
+  dataTurn.data = JSON.stringify(dataTurn.data).toString();
   return JSON.stringify(dataTurn);
+};
+
+export const checkWhoturn = async (rowData) => {
+  const preparedData = { ...rowData };
+  preparedData.data = JSON.parse(preparedData.data);
+  const gameJson = await Game.getElemnt(preparedData.data.gameId);
+  const game = JSON.parse(gameJson);
+
+  if (game.type === "single") {
+    if (game.turn === "player_1") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const playerWhoTurn = game.turn;
+  if (game[playerWhoTurn] === preparedData.data.indexPlayer) {
+    return false;
+  } else {
+    return true;
+  }
 };

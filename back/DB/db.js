@@ -1,6 +1,5 @@
 import { mkdir, writeFile, readdir, readFile, unlink } from "node:fs/promises";
 import path from "node:path";
-import { v4 as uuidv4, validate as uuidValidate } from "uuid";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -17,7 +16,7 @@ export class DB {
   }
 
   async create(data) {
-    const _id = uuidv4();
+    const _id = Date.now().toString();
     const user = { _id, ...data };
     const userStringifyed = JSON.stringify(user, null, 2);
     const pathNewFile = path.join(
@@ -80,9 +79,6 @@ export class DB {
 
   async updateElement(id, data) {
     const pathFile = path.join(__dirname, this._nameColection, id + ".json");
-    if (!uuidValidate(id)) {
-      return "Unsuitable id format";
-    }
     try {
       //const content = await readFile(pathFile);
       //const obj = JSON.parse(content);
@@ -101,9 +97,6 @@ export class DB {
 
   async deleteElement(id) {
     const pathFile = path.join(__dirname, this._nameColection, id + ".json");
-    if (!uuidValidate(id)) {
-      return "Unsuitable id format";
-    }
     try {
       await unlink(pathFile);
       return "The item has been deleted";
